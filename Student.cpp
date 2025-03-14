@@ -2,8 +2,41 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <iomanip>
 
 using namespace std;
+
+
+string StudyFieldToString(const StudyField& study) {
+    switch (study) {
+    case StudyField::Informatics: return "Informatics";
+    case StudyField::ComputerScience: return "Computer Science";
+    case StudyField::Math: return "Math";
+    case StudyField::Engineering: return "Engineering";
+    default: return "Unknown";
+    }
+}
+
+string MajorToString(const Major& major) {
+    switch (major) {
+    case Major::Cybersecurity: return "Cyber Security";
+    case Major::SoftwareDevelopment: return "Software Development";
+    case Major::ArtificialIntelligence: return "Artificial Intelligence";
+    case Major::DataScience: return "Data Science";
+    default: return "Unknown";
+    }
+}
+
+
+string StudyYearToString(const StudyYear& year) {
+    switch (year) {
+    case StudyYear::First: return "First Year";
+    case StudyYear::Second: return "Second Year";
+    case StudyYear::Third: return "Third Year";
+    case StudyYear::Fourth: return "Fourth Year";
+    default: return "Unknown";
+    }
+}
 
 
 Student CreateStudent(vector<Student>& students) {
@@ -14,36 +47,36 @@ Student CreateStudent(vector<Student>& students) {
     
     
     //Sets Student name
-    cout << "Enter student first name: ";
+    cout << "Enter student First name: ";
     cin.getline(student.name, MAX_STUDENT_LETTERS);
 
     //Sets Student middle name
-    cout << "Enter student middle name: ";
+    cout << "Enter student Middle name: ";
     cin.getline(student.middleName, MAX_STUDENT_LETTERS);
 
     //Sets Student surname
-    cout << "Enter student surname: ";
+    cout << "Enter student Surname: ";
     cin.getline(student.surname, MAX_STUDENT_LETTERS);
 
     //Sets student address
     cout << "\nEnter student address\n";
     cout << "----------------------\n";
-    cout << "Enter city: ";
+    cout << "Enter City: ";
     cin.getline(student.address.city, MAX_CITY_LENGTH);
-    cout << "Enter city postcode: ";
+    cout << "Enter City Postcode: ";
     cin >> student.address.postcode;
     cin.ignore();
-    cout << "Enter street name: ";
+    cout << "Enter Street Name: ";
     cin.getline(student.address.street, MAX_STREET_LENGTH);
-    cout << "Enter street number: ";
+    cout << "Enter Street Number: ";
     cin >> student.address.numStreet;
-    cout << "Enter street letter: ";
+    cout << "Enter Street Letter: ";
     cin >> student.address.streetLetter;
-    cout << "Enter entrance number: ";
+    cout << "Enter Entrance Number: ";
     cin >> student.address.entrance;
-    cout << "Enter floor number: ";
+    cout << "Enter Floor Number: ";
     cin >> student.address.floor;
-    cout << "Enter appartment number: ";
+    cout << "Enter Appartment Number: ";
     cin >> student.address.numApp;
 
     //Sets Student faculty number
@@ -99,16 +132,16 @@ Student CreateStudent(vector<Student>& students) {
         cout << "Invalid Option! Try again: ";
     }
     if (major == 1) {
-        student.major == Major::Cybersecurity;
+        student.major = Major::Cybersecurity;
     }
     else if (studyYear == 2) {
-        student.major == Major::SoftwareDevelopment;
+        student.major = Major::SoftwareDevelopment;
     }
     else if (studyYear == 3) {
-        student.major == Major::ArtificialIntelligence;
+        student.major = Major::ArtificialIntelligence;
     }
     else {
-        student.major == Major::DataScience;
+        student.major = Major::DataScience;
     }
 
     //Sets Student Study Year
@@ -126,16 +159,16 @@ Student CreateStudent(vector<Student>& students) {
         cout << "Invalid Option! Try again: ";
     }
     if (studyYear == 1) {
-        student.year == StudyYear::First;
+        student.year = StudyYear::First;
     }
     else if(studyYear == 2) {
-        student.year == StudyYear::Second;
+        student.year = StudyYear::Second;
     }
     else if (studyYear == 3) {
-        student.year == StudyYear::Third;
+        student.year = StudyYear::Third;
     }
     else {
-        student.year == StudyYear::Fourth;
+        student.year = StudyYear::Fourth;
     }
 
 
@@ -158,7 +191,7 @@ Student CreateStudent(vector<Student>& students) {
 
     cout << "\nEnter Student grades for passed exams\n";
     for (size_t i = 0; i < student.passedExams; ++i) {
-        cout << "Enter grade number " << i + 1 << ": ";
+        cout << "Enter grade for Exam " << i + 1 << ": ";
         cin >> student.grades[i];
     }
 
@@ -166,3 +199,28 @@ Student CreateStudent(vector<Student>& students) {
 
     return student;
 }
+
+void PrintStudent(const Student& student) {
+    cout << "Student Info\n";
+    cout << "---------------\n";
+    cout << "Name: " << student.name << "\n";
+    cout << "Middle name: " << student.middleName << "\n";
+    cout << "Surname: " << student.surname << "\n";
+    cout << "Address: '" << student.address.city << "', " << student.address.postcode << ", '" << student.address.street << "', " <<
+        student.address.numStreet << student.address.streetLetter << ", en. " << student.address.entrance << ", fl. " << student.address.floor << ", ap." << student.address.numApp << ". \n";
+    cout << "Faculty Number: " << student.facultyNum << "\n";
+    cout << "Email: " << student.email << "\n";
+    cout << "Study Field: " << StudyFieldToString(student.studyField) << "\n";
+    cout << "Major: " << MajorToString(student.major) << "\n";
+    cout << "Year of study: " << StudyYearToString(student.year) << "\n";
+    cout << "Group: " << student.group << "\n";
+    cout << "Passed Exams: " << student.passedExams << "\n";
+    cout << "\nGrades: \n";
+    cout << "------------\n";
+    cout << fixed << setprecision(2);
+    for (size_t i = 0; i < student.passedExams; ++i) {
+        cout << "Grade number " << i + 1 << ": " << student.grades[i] << "\n";
+    }
+
+}
+

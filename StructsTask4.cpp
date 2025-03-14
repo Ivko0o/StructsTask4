@@ -54,12 +54,17 @@ Write functions working with an array of student records that:
 using namespace std;
 
 Student CreateStudent(vector<Student>& students);
+void PrintStudent(const Student& student);
+string StudyFieldToString(const StudyField& study);
+string MajorToString(const Major& major);
+string StudyYearToString(const StudyYear& year);
 
 int main()
 {
 	vector<Student> students;
 
 	CreateStudent(students);
+	PrintStudent(students[0]);
 
 	return 0;
 
