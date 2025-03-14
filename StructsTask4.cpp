@@ -49,113 +49,20 @@ Write functions working with an array of student records that:
 #include <iostream>
 #include <string>
 #include <vector>
-
-
-#define MAX_STREET_LENGTH 64
-#define MAX_CITY_LENGTH 32
-#define MAX_STUDENT_LETTERS 32
-#define FACULTY_NUMBER_SYMBOLS 10
+#include "Student.h"
 
 using namespace std;
 
-
-
-enum studyField {
-    Informatics,
-    ComputerScience,
-    Math,
-    Engineering
-};
-
-enum studyYear
-{
-    First = 1,
-    Second,
-    Third,
-    Fourth,
-};
-
-enum studyStream
-{
-    Cybersecurity,
-    SoftwareDevelopment,
-    ArtificialIntelligence,
-    DataScience,
-};
-
-enum Group
-{
-    One = 1,
-    Two,
-    Three,
-    Four,
-    Five
-};
-
-struct Address
-{
-    char street[MAX_STREET_LENGTH];
-    char city[MAX_CITY_LENGTH];
-    int postcode;
-    int numStreet;
-    short entrance;
-    short floor;
-    short numApp;
-    char streetLetter;
-};
-
-struct Student
-{
-    char name[MAX_STUDENT_LETTERS];
-    char middleName[MAX_STUDENT_LETTERS];
-    char surname[MAX_STUDENT_LETTERS];
-    Address address;
-    studyField major;
-    char facultyNum[FACULTY_NUMBER_SYMBOLS];
-    char email[MAX_STUDENT_LETTERS];
-    studyYear year;
-    studyStream stream;
-    Group group;
-    int passedExams;
-    float* grades;
-   
-};
-
-Student CreateStudent();
+Student CreateStudent(vector<Student>& students);
 
 int main()
 {
- 
+	vector<Student> students;
+
+	CreateStudent(students);
+
+	return 0;
 
 }
 
-Student CreateStudent() {
-    Student student;
-    cout << "Enter student name: ";
-    cin.getline(student.name, MAX_STUDENT_LETTERS);
-    cout << "Enter student middle name: ";
-    cin.getline(student.middleName, MAX_STUDENT_LETTERS);
-    cout << "Enter student surname: ";
-    cin.getline(student.surname, MAX_STUDENT_LETTERS);
-    cout << "Enter student address\n";
-    cout << "Enter city: ";
-    cin.getline(student.address.city, MAX_CITY_LENGTH);
-    cout << "Enter postcode: ";
-    cin >> student.address.postcode;
-    cout << "Enter street: ";
-    cin.getline(student.address.street, MAX_STREET_LENGTH);
-    cout << "Enter street number: ";
-    cin >> student.address.numStreet;
-    cout << "Enter street letter: ";
-    cin >> student.address.streetLetter;
-    cout << "Enter entrance: ";
-    cin >> student.address.entrance;
-    cout << "Enter floor: ";
-    cin >> student.address.floor;
-    cout << "Enter appartment: ";
-    cin >> student.address.numApp;
-
-
-    return student;
-}
 
