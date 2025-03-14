@@ -10,6 +10,7 @@ Student CreateStudent(vector<Student>& students) {
     Student student = {};
     int studyField = 0;
     int studyYear = 0;
+    int major = 0;
     
     
     //Sets Student name
@@ -38,16 +39,25 @@ Student CreateStudent(vector<Student>& students) {
     cin >> student.address.numStreet;
     cout << "Enter street letter: ";
     cin >> student.address.streetLetter;
-    cout << "Enter entrance: ";
+    cout << "Enter entrance number: ";
     cin >> student.address.entrance;
-    cout << "Enter floor: ";
+    cout << "Enter floor number: ";
     cin >> student.address.floor;
-    cout << "Enter appartment: ";
+    cout << "Enter appartment number: ";
     cin >> student.address.numApp;
+
+    //Sets Student faculty number
+    cin.ignore();
+    cout << "Enter Student Facutly Number: ";
+    cin.getline(student.facultyNum, FACULTY_NUMBER_SYMBOLS);
+
+    //Sets Student Email
+    cout << "Enter Student Email: ";
+    cin.getline(student.email, MAX_STUDENT_LETTERS);
 
 
     //Sets student StudyField
-    cout << "Choose student Study Field: \n";
+    cout << "\nChoose student Study Field: \n";
     cout << "1. Informatics\n";
     cout << "2. Computer Science\n";
     cout << "3. Math\n";
@@ -74,17 +84,35 @@ Student CreateStudent(vector<Student>& students) {
         student.studyField = StudyField::Engineering;
     }
 
-    //Sets Student faculty number
-    cin.ignore();
-    cout << "Enter Student Facutly Number: ";
-    cin.getline(student.facultyNum, FACULTY_NUMBER_SYMBOLS);
+    //Sets Student Major
+    cout << "\nChoose Student Major\n";
+    cout << "1. Cyber Security\n";
+    cout << "2. Software Development\n";
+    cout << "3. Artificial Intelligence\n";
+    cout << "4. Data Science\n";
+    while (true) {
 
-    //Sets Student Email
-    cout << "Enter Student Email: ";
-    cin.getline(student.email, MAX_STUDENT_LETTERS);
+        cin >> major;
+        if (major >= 1 && major <= 4) {
+            break;
+        }
+        cout << "Invalid Option! Try again: ";
+    }
+    if (major == 1) {
+        student.major == Major::Cybersecurity;
+    }
+    else if (studyYear == 2) {
+        student.major == Major::SoftwareDevelopment;
+    }
+    else if (studyYear == 3) {
+        student.major == Major::ArtificialIntelligence;
+    }
+    else {
+        student.major == Major::DataScience;
+    }
 
     //Sets Student Study Year
-    cout << "Choose Student Year of study\n";
+    cout << "\nChoose Student Year of study\n";
     cout << "1. First year\n";
     cout << "2. Second year\n";
     cout << "3. Third year\n";
@@ -111,7 +139,28 @@ Student CreateStudent(vector<Student>& students) {
     }
 
 
+    //Set Student Group
+    cout << "Enter Student Group: ";
+    while (true) {
+        cin >> student.group;
+        if (student.group > 0) {
+            break;
+        }
+        cout << "Group should be a positive value! Try again: ";
+    }
     
+    //Sets Student number of passed exams
+    cout << "Enter Student number of passed exams: ";
+    cin >> student.passedExams;
+
+    //Sets Student grades
+    student.grades = new float[student.passedExams];
+
+    cout << "\nEnter Student grades for passed exams\n";
+    for (size_t i = 0; i < student.passedExams; ++i) {
+        cout << "Enter grade number " << i + 1 << ": ";
+        cin >> student.grades[i];
+    }
 
     students.push_back(student);
 

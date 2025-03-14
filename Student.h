@@ -28,15 +28,6 @@ enum Major
     DataScience,
 };
 
-enum Group
-{
-    One = 1,
-    Two,
-    Three,
-    Four,
-    Five
-};
-
 struct Address
 {
     char street[MAX_STREET_LENGTH];
@@ -59,8 +50,8 @@ struct Student
     char facultyNum[FACULTY_NUMBER_SYMBOLS];
     char email[MAX_STUDENT_LETTERS];
     StudyYear year;
-    Major stream;
-    Group group;
+    Major major;
+    int group;
     int passedExams;
     float* grades;
 
