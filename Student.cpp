@@ -1,10 +1,12 @@
 #include "Student.h"
-#include <string>
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <cstdlib>
 
 using namespace std;
+
+const int arraySize = 10;
 
 
 string StudyFieldToString(const StudyField& study) {
@@ -38,7 +40,6 @@ string StudyYearToString(const StudyYear& year) {
     }
 }
 
-
 Student CreateStudent(vector<Student>& students) {
     Student student = {};
     int studyField = 0;
@@ -64,7 +65,13 @@ Student CreateStudent(vector<Student>& students) {
     cout << "Enter City: ";
     cin.getline(student.address.city, MAX_CITY_LENGTH);
     cout << "Enter City Postcode: ";
-    cin >> student.address.postcode;
+    do {
+        cin >> student.address.postcode;
+        if (student.address.postcode < 1000 || student.address.postcode > 9999) {
+            cout << "Invalid value! Postcode must be between 1000 and 9999! Try again: ";
+        }
+
+    } while (student.address.postcode < 1000 || student.address.postcode > 9999);
     cin.ignore();
     cout << "Enter Street Name: ";
     cin.getline(student.address.street, MAX_STREET_LENGTH);
@@ -174,17 +181,19 @@ Student CreateStudent(vector<Student>& students) {
 
     //Set Student Group
     cout << "Enter Student Group: ";
-    while (true) {
+    do {
         cin >> student.group;
-        if (student.group > 0) {
-            break;
-        }
+        if(student.group <= 0 || student.group > 50)
         cout << "Group should be a positive value! Try again: ";
-    }
+    } while (student.group <= 0 || student.group > 50);
     
     //Sets Student number of passed exams
     cout << "Enter Student number of passed exams: ";
-    cin >> student.passedExams;
+    do {
+        cin >> student.passedExams;
+        if(student.passedExams <= 0 || student.passedExams > 10)
+            cout << "Value must be between 1 and 10! Try again: ";
+    } while (student.passedExams <= 0 || student.passedExams > 10);
 
     //Sets Student grades
     student.grades = new float[student.passedExams];
@@ -206,7 +215,7 @@ void PrintStudent(const Student& student) {
     cout << "Name: " << student.name << "\n";
     cout << "Middle name: " << student.middleName << "\n";
     cout << "Surname: " << student.surname << "\n";
-    cout << "Address: '" << student.address.city << "', " << student.address.postcode << ", '" << student.address.street << "', " <<
+    cout << "Address: " << student.address.city << ", " << student.address.postcode << ", '" << student.address.street << "' " <<
         student.address.numStreet << student.address.streetLetter << ", en. " << student.address.entrance << ", fl. " << student.address.floor << ", ap." << student.address.numApp << ". \n";
     cout << "Faculty Number: " << student.facultyNum << "\n";
     cout << "Email: " << student.email << "\n";
@@ -222,5 +231,112 @@ void PrintStudent(const Student& student) {
         cout << "Grade number " << i + 1 << ": " << student.grades[i] << "\n";
     }
 
+}
+
+Student RandomStudent() {
+    Student student;
+
+    //Sets up a random name for the student
+    string randomNames[arraySize] = { "Ivelin", "Martin", "Todor", "Ivan", "Petyr", "Georgi", "Dimityr", "Boqn", "Simeon", "Panayot" };
+    int randomNameIndex = rand() % 10;
+    strcpy_s(student.name, randomNames[randomNameIndex].c_str());
+
+    //Sets up a random middle name for the student
+    string randomMiddleNames[arraySize] = { "Ivelinov", "Martinov", "Todorov", "Ivanov", "Petrov", "Georgiev", "Dimitrov", "Boqnov", "Simeonov", "Panayotov" };
+    int randomMiddleNameIndex = rand() % 10;
+    strcpy_s(student.middleName, randomMiddleNames[randomMiddleNameIndex].c_str());
+
+    //Sets up a random surname for the student
+    string randomSurnames[arraySize] = { "Ivelinov", "Martinov", "Todorov", "Ivanov", "Petrov", "Georgiev", "Dimitrov", "Boqnov", "Simeonov", "Panayotov" };
+    int randomSurnameIndex = rand() % 10;
+    strcpy_s(student.surname, randomSurnames[randomSurnameIndex].c_str());
+
+    //Sets up a random city
+    string randomCities[arraySize] = { "Sofia", "Varna", "Ruse", "Burgas", "Plovdiv", "Dobrich", "Targovishte", "Stara Zagora", "Blagoevgrad", "Montana" };
+    int randomCityIndex = rand() % 10;
+    strcpy_s(student.address.city, randomCities[randomCityIndex].c_str());
+
+    //Sets a random postcode
+    student.address.postcode = 1000 + (rand() % 9000);
+
+    //Sets a random street
+    string randomStreets[arraySize] = { "Hristo Botev", "Vasil Levski", "Ivan Vazov", "Stefan Stambolov", "Georgi Rakovski", "Shipka", "Opalchenska", "Tsar Osvoboditel",
+        "Tsar Boris", "Tsar Simeon" };
+    int randomStreetIndex = rand() % 10;
+    strcpy_s(student.address.street, randomStreets[randomStreetIndex].c_str());
+
+    //Sets a random street number
+    student.address.numStreet = (rand() % 300) + 1;
+    
+    //Sets a random street letter
+    student.address.streetLetter = 'A' + rand() % 26;
+
+    //Sets a random entrance
+    student.address.entrance = (rand() % 5) + 1;
+
+    //Sets a random floor
+    student.address.floor = (rand() % 14) + 1;
+
+    //Sets a random appartment number
+    student.address.numApp = (rand() % 70) + 1;
+
+    //Sets a random faculty number
+    for (int i = 0; i < FACULTY_NUMBER_SYMBOLS; ++i) {
+        student.facultyNum[i] = (rand() % 10) + '0';
+    }
+
+    //Sets a random email
+    string randomEmails[arraySize] = { "myemail@abv.bg", "myemail@gmail.com", "student@outlook.com", "warrior1@gmail.com", "uni@mail.bg", "school@FMI.bg", "myStudies@SU.com",
+    "lectures@FMI.bg", "important@abv.bg", "general@mail.bg" };
+    int randomEmailIndex = rand() % 10;
+    strcpy_s(student.email, randomEmails[randomEmailIndex].c_str());
+
+    //Sets random Field of Study
+    int setFieldOfStudy = (rand() % 4) + 1;
+    if (setFieldOfStudy == 1)
+        student.studyField = StudyField::Informatics;
+    else if (setFieldOfStudy == 2)
+        student.studyField = StudyField::ComputerScience;
+    else if (setFieldOfStudy == 3)
+        student.studyField = StudyField::Math;
+    else
+        student.studyField = StudyField::Engineering;
+
+    //Sets random Major
+    int setMajor = (rand() % 4) + 1;
+    if (setMajor == 1)
+        student.major = Major::Cybersecurity;
+    else if (setMajor == 2)
+        student.major = Major::SoftwareDevelopment;
+    else if (setMajor == 3)
+        student.major = Major::ArtificialIntelligence;
+    else
+        student.major = Major::DataScience;
+
+    //Sets random Study Year
+    int setYearOfStudy = (rand() % 4) + 1;
+    if (setYearOfStudy == 1)
+        student.year = StudyYear::First;
+    else if (setYearOfStudy == 2)
+        student.year = StudyYear::Second;
+    else if (setYearOfStudy == 3)
+        student.year = StudyYear::Third;
+    else
+        student.year = StudyYear::Fourth;
+  
+    //Sets random Group
+    student.group = (rand() % 50) + 1;
+
+    //Sets random passed exams
+    student.passedExams = (rand() % 10) + 1;
+
+    //Sets random grades
+    student.grades = new float[student.passedExams];
+
+    for (int i = 0; i < student.passedExams; ++i) {
+        student.grades[i] = 1.0f + static_cast<float>(rand()) / (RAND_MAX / 3.0f);
+    }
+
+    return student;
 }
 

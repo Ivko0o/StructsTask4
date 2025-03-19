@@ -1,12 +1,15 @@
 #pragma once
+#include <string>
+#include <vector>
 
 #define MAX_STREET_LENGTH 64
 #define MAX_CITY_LENGTH 32
 #define MAX_STUDENT_LETTERS 32
 #define FACULTY_NUMBER_SYMBOLS 10
 
+
 enum StudyField {
-    Informatics,
+    Informatics = 1,
     ComputerScience,
     Math,
     Engineering
@@ -56,3 +59,10 @@ struct Student
     float* grades;
 
 };
+
+Student CreateStudent(std::vector<Student>& students);
+void PrintStudent(const Student& student);
+std::string StudyFieldToString(const StudyField& study);
+std::string MajorToString(const Major& major);
+std::string StudyYearToString(const StudyYear& year);
+Student RandomStudent();

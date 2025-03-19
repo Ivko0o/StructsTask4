@@ -45,7 +45,6 @@ Write functions working with an array of student records that:
 
 */
 
-
 #include <iostream>
 #include <string>
 #include <vector>
@@ -53,18 +52,21 @@ Write functions working with an array of student records that:
 
 using namespace std;
 
-Student CreateStudent(vector<Student>& students);
-void PrintStudent(const Student& student);
-string StudyFieldToString(const StudyField& study);
-string MajorToString(const Major& major);
-string StudyYearToString(const StudyYear& year);
-
 int main()
 {
+	srand(time(0));
 	vector<Student> students;
+	
+	Student student1 = RandomStudent();
+	PrintStudent(student1);
 
-	CreateStudent(students);
-	PrintStudent(students[0]);
+
+
+
+	//Releases the memory used for the grades
+	for (const Student& student : students) {
+		delete[] student.grades;
+	}
 
 	return 0;
 
