@@ -50,7 +50,7 @@ struct Student
     char surname[MAX_STUDENT_LETTERS];
     Address address;
     StudyField studyField;
-    char facultyNum[FACULTY_NUMBER_SYMBOLS];
+    char facultyNum[FACULTY_NUMBER_SYMBOLS+1];
     char email[MAX_STUDENT_LETTERS];
     StudyYear year;
     Major major;
@@ -66,3 +66,5 @@ std::string StudyFieldToString(const StudyField& study);
 std::string MajorToString(const Major& major);
 std::string StudyYearToString(const StudyYear& year);
 Student RandomStudent();
+float CalculateAverageGrade(const Student& student);
+std::vector <Student> TopStudents(const std::vector<Student>& students, float threshold);

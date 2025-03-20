@@ -56,11 +56,21 @@ int main()
 {
 	srand(time(0));
 	vector<Student> students;
-	
-	Student student1 = RandomStudent();
-	PrintStudent(student1);
+	float threshold = 2.0;
 
+	//Creates 10 random students
+	for (int i = 0; i < 10; ++i) {
+		Student student;
+		student = RandomStudent();
+		students.push_back(student);
+	}
 
+	//Shows the top achievers
+	vector<Student> topStudents = TopStudents(students, threshold);
+	for (const Student& topStudent : topStudents) {
+		PrintStudent(topStudent);
+		cout << "\nAverage Score: " << CalculateAverageGrade(topStudent) << "\n";
+	}
 
 
 	//Releases the memory used for the grades

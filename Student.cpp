@@ -210,7 +210,7 @@ Student CreateStudent(vector<Student>& students) {
 }
 
 void PrintStudent(const Student& student) {
-    cout << "Student Info\n";
+    cout << "\nStudent Info\n";
     cout << "---------------\n";
     cout << "Name: " << student.name << "\n";
     cout << "Middle name: " << student.middleName << "\n";
@@ -284,6 +284,8 @@ Student RandomStudent() {
     for (int i = 0; i < FACULTY_NUMBER_SYMBOLS; ++i) {
         student.facultyNum[i] = (rand() % 10) + '0';
     }
+    student.facultyNum[FACULTY_NUMBER_SYMBOLS] = '\0';
+
 
     //Sets a random email
     string randomEmails[arraySize] = { "myemail@abv.bg", "myemail@gmail.com", "student@outlook.com", "warrior1@gmail.com", "uni@mail.bg", "school@FMI.bg", "myStudies@SU.com",
@@ -338,5 +340,34 @@ Student RandomStudent() {
     }
 
     return student;
+}
+
+//Calculates student average score
+float CalculateAverageGrade(const Student& student) {
+    float totalScore = 0.0;
+
+    for (int i = 0; i < student.passedExams; ++i) {
+        totalScore += student.grades[i];
+    }
+
+    return totalScore / student.passedExams;
+}
+
+//Shows the students with a grade above a certain threshold
+vector<Student> TopStudents(const vector<Student>& students, float threshold) {
+    vector<Student> tîpStudents;
+    float averageGrade = 0.0;
+    int number = 1;
+
+    cout << "\nTop students\n";
+    cout << "----------------\n";
+    for (const Student& student : students) {
+       averageGrade = CalculateAverageGrade(student);
+       if (averageGrade >= threshold) {
+           tîpStudents.push_back(student);
+        }
+    }
+
+    return tîpStudents;
 }
 
